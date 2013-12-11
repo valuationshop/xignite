@@ -21,7 +21,9 @@ module Xignite
         querystring = options.map do |key, value|
           "#{CGI.escape(key.to_s).gsub(/%(5B|5D)/n) { [$1].pack('H*') }}=#{CGI.escape(value)}"
         end.sort * '&'
-        response = Curl::Easy.http_get([endpoint, querystring].reject{|s| s == '' }.join('?'))
+        request = [endpoint, querystring].reject{|s| s == '' }.join('?')
+        #puts "Request #{request}"
+        response = Curl::Easy.http_get(request)
         new(response)
       end
 
@@ -29,7 +31,7 @@ module Xignite
       
       def endpoint
         names = name.split('::')
-        "#{protocol}://#{Xignite.configuration.endpoint}/x#{names[1]}.asmx/#{names[2]}"
+        "#{protocol}://#{Xignite.configuration.endpoint}/x#{names[1]}.xml/#{names[2]}"  # use xml instead of asmx
       end
 
       def protocol
