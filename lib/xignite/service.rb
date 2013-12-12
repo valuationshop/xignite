@@ -22,7 +22,7 @@ module Xignite
           "#{CGI.escape(key.to_s).gsub(/%(5B|5D)/n) { [$1].pack('H*') }}=#{CGI.escape(value)}"
         end.sort * '&'
         request = [endpoint, querystring].reject{|s| s == '' }.join('?')
-        #puts "Request #{request}"
+        puts "Request URL #{request}"
         response = Curl::Easy.http_get(request)
         new(response)
       end
