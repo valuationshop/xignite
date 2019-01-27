@@ -1,7 +1,7 @@
 source :rubygems
 
-gem 'curb'
-gem 'crack'
+gem 'curb', '>=0.9.4'
+gem 'crack', '>=0.4.3'
 gem 'tzinfo'
 gem 'rake'
 
